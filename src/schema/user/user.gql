@@ -1,0 +1,40 @@
+type Query {
+  user(id: String, username: String): User
+}
+
+type Mutation {
+  createUser(input: CreateUserInput!): User!
+}
+
+type User {
+  id: ID!
+  username: String
+  email: String
+  phone: String
+  firstName: String
+  lastName: String
+  organizations: [UserOrganization]
+}
+
+type UserOrganization {
+  id: ID!
+  name: String
+  isGovernment: Boolean
+  description: String
+  officeAddress: String
+  role: UserRole!
+}
+
+enum UserRole {
+  OWNER
+  MEMBER
+  # ADMIN
+}
+
+input CreateUserInput {
+  username: String
+  email: String
+  phone: String
+  firstName: String
+  lastName: String
+}

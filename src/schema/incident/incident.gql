@@ -1,0 +1,56 @@
+type Query {
+  incidents: [Incident!]!
+}
+
+type Mutation {
+  createIncident(data: CreateIncidentInput!): Incident
+  # createIncidentHistory(data: CreateIncidentHistoryInput!): IncidentHistory
+}
+
+type Subscription {
+  newIncident: Incident!
+}
+
+type Incident {
+  id: ID!
+  label: IncidentLabel!
+  incidentHistories: IncidentHistory!
+  information: String!
+  imageUrls: [String!]!
+  userUpvotes: [User!]!
+  reportedBy: User!
+  createdAt: String!
+  updatedAt: String!
+  # location: LocationPoint!
+}
+
+input CreateIncidentInput {
+  name: String!
+  information: String!
+}
+
+type IncidentLabel {
+  id: ID!
+  name: String!
+  icon: String!
+}
+
+type IncidentHistory {
+  # bisa untuk menuliskan tindakan yang dilakukan
+  id: ID!
+  information: String!
+  status: IncidentHistoryStatus!
+  imageUrls: [String!]!
+}
+
+enum IncidentHistoryStatus {
+  WAITING
+  PROGRESS
+  COMPLETE
+}
+
+type LocationPoint {
+  lat: Float!
+  lng: Float!
+  address: String
+}

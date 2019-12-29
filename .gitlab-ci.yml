@@ -1,0 +1,25 @@
+cache:
+  key: ${CI_COMMIT_REF_SLUG}
+  paths:
+    - node_modules/
+
+before_script:
+    - export NVM_DIR="$HOME/.nvm"
+    - . ${NVM_DIR}/nvm.sh
+    - nvm use 10
+    - npm install
+    - mv .env.example .env
+
+stages:
+  - deploy
+
+deploy_dev:
+  stage: deploy
+  tags:
+    - rakyat-app-api
+  script:
+    - echo "Deploy to staging (dev) server"
+    - sed -i 's/PORT=4000/PORT=3000/g' .env
+    - pm2 start ecosystem.config.js
+  only:
+    - master

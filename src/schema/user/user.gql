@@ -6,17 +6,17 @@ type Mutation {
   createUser(input: CreateUserInput!): User!
 }
 
-type User {
+type User implements UserType {
   id: ID!
   username: String
   email: String
   phone: String
   firstName: String
   lastName: String
-  organizations: [UserOrganization]
+  organizations: [UserOrganizationWithRole]
 }
 
-type UserOrganization {
+type UserOrganizationWithRole {
   id: ID!
   name: String
   isGovernment: Boolean
@@ -28,10 +28,19 @@ type UserOrganization {
 enum UserRole {
   OWNER
   MEMBER
-  # ADMIN
+  ADMIN
 }
 
 input CreateUserInput {
+  username: String
+  email: String
+  phone: String
+  firstName: String
+  lastName: String
+}
+
+interface UserType {
+  id: ID!
   username: String
   email: String
   phone: String

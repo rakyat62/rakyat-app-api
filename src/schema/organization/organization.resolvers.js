@@ -1,5 +1,6 @@
 import graphqlFields from 'graphql-fields';
 import models from '../../models';
+import { verifyToken } from '../../utils/auth';
 
 export default {
   Query: {
@@ -33,8 +34,9 @@ export default {
     },
   },
   Mutation: {
-    createOrganization: async (parent, { login, input }) => {
-      const user = await models.User.findOne({ where: { username: login } });
+    createOrganization: async (parent, { input }, { request }) => {
+      const auth = verifyToken(request);
+      const user = await models.User.findByPk(auth.id);
       if (!user) throw Error('user not found');
       const org = await models.Organization.create(input);
       await user.addOrganization(org, { through: { role: 'OWNER' } });

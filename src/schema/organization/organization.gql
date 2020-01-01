@@ -3,7 +3,7 @@ type Query {
 }
 
 type Mutation {
-  createOrganization(login: String!, input: CreateOrganizationInput!): Organization!
+  createOrganization(input: CreateOrganizationInput!): Organization!
   addOrganizationMember(organizationId: Int!, username: String!, role: UserRole): User
 }
 

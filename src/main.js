@@ -6,6 +6,9 @@ require('dotenv').config();
 const server = new GraphQLServer({
   typeDefs,
   resolvers,
+  context: (request) => ({
+    request,
+  }),
 });
 
 server.start({ port: process.env.PORT || 4000 }, (info) => {

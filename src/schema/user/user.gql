@@ -1,9 +1,10 @@
 type Query {
-  user(id: String, username: String): User
+  user(id: String, username: String): User!
 }
 
 type Mutation {
   createUser(input: CreateUserInput!): User!
+  login(input: LoginUserInput!): AuthPayload!
 }
 
 type User implements UserType {
@@ -47,4 +48,14 @@ interface UserType {
   phone: String
   firstName: String
   lastName: String
+}
+
+type AuthPayload {
+  token: String!
+  user: User!
+}
+
+input LoginUserInput {
+  username: String!
+  password: String!
 }

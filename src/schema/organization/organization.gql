@@ -4,7 +4,7 @@ type Query {
 
 type Mutation {
   createOrganization(login: String!, input: CreateOrganizationInput!): Organization!
-  addOrganizationMember(organizationId: Int!, username: String!): User
+  addOrganizationMember(organizationId: Int!, username: String!, role: UserRole): User
 }
 
 type OrganizationConnection {

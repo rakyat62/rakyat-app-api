@@ -8,7 +8,7 @@ type Mutation {
 
 type User implements UserType {
   id: ID!
-  username: String
+  username: String!
   email: String
   phone: String
   firstName: String

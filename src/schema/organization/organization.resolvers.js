@@ -9,7 +9,18 @@ export default {
       const fields = graphqlFields(info);
 
       if (fields.nodes) {
-        nodes = await models.Organization.findAll();
+        const include = [
+          { model: models.User },
+        ];
+
+        nodes = await models.Organization.findAll({ include });
+        nodes = nodes.map((org) => ({
+          ...org.toJSON(),
+          members: org.Users.map((user) => ({
+            ...user.toJSON(),
+            role: user.UserRole.role,
+          })),
+        }));
       }
       if (fields.totalCount) {
         totalCount = await models.Organization.count();

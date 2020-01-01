@@ -1,3 +1,4 @@
+import bcrypt from 'bcryptjs';
 import models from '../../models';
 
 export default {
@@ -24,7 +25,10 @@ export default {
   },
 
   Mutation: {
-    createUser: (parent, { input }) => models.User.create(input),
+    createUser: async (parent, { input }) => {
+      const password = await bcrypt.hash(input.password, 10);
+      return models.User.create({ ...input, password });
+    },
   },
 
   User: {

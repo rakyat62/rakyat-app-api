@@ -8,7 +8,7 @@ type Mutation {
 }
 
 type User implements UserType {
-  id: ID!
+  id: Int!
   username: String!
   email: String
   phone: String
@@ -18,7 +18,7 @@ type User implements UserType {
 }
 
 type UserOrganizationWithRole {
-  id: ID!
+  id: Int!
   name: String
   isGovernment: Boolean
   description: String
@@ -42,7 +42,7 @@ input CreateUserInput {
 }
 
 interface UserType {
-  id: ID!
+  id: Int!
   username: String
   email: String
   phone: String

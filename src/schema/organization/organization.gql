@@ -13,7 +13,7 @@ type OrganizationConnection {
 }
 
 type Organization {
-  id: ID!
+  id: Int!
   name: String
   isGovernment: Boolean
   description: String
@@ -22,7 +22,7 @@ type Organization {
 }
 
 type OrganizationMemberWithRole implements UserType {
-  id: ID!
+  id: Int!
   username: String
   email: String
   phone: String

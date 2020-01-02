@@ -1,9 +1,10 @@
 type Query {
   incidents: [Incident!]!
+  incidentLabels: [IncidentLabel!]!
 }
 
 type Mutation {
-  createIncident(data: CreateIncidentInput!): Incident
+  createIncident(input: CreateIncidentInput!): Incident!
   # createIncidentHistory(data: CreateIncidentHistoryInput!): IncidentHistory
 }
 
@@ -12,45 +13,45 @@ type Subscription {
 }
 
 type Incident {
-  id: ID!
+  id: Int!
+  information: String
+  status: IncidentStatus!
+  locationAddress: String
+  locationLat: Float!
+  locationLng: Float!
   label: IncidentLabel!
-  incidentHistories: IncidentHistory!
-  information: String!
-  imageUrls: [String!]!
-  userUpvotes: [User!]!
-  reportedBy: User!
+  createdBy: User!
+  # incidentHistories: IncidentHistory!
+  # imageUrls: [String!]!
+  # userUpvotes: [User!]!
   createdAt: String!
   updatedAt: String!
-  # location: LocationPoint!
+}
+
+enum IncidentStatus {
+  OPEN
+  CLOSED
 }
 
 input CreateIncidentInput {
-  name: String!
   information: String!
+  locationAddress: String
+  locationLat: Float!
+  locationLng: Float!
+  # label ID
+  label: Int!
 }
 
+
 type IncidentLabel {
-  id: ID!
+  id: Int!
   name: String!
   icon: String!
 }
 
-type IncidentHistory {
-  # bisa untuk menuliskan tindakan yang dilakukan
-  id: ID!
-  information: String!
-  status: IncidentHistoryStatus!
-  imageUrls: [String!]!
-}
-
-enum IncidentHistoryStatus {
-  WAITING
-  PROGRESS
-  COMPLETE
-}
-
-type LocationPoint {
-  lat: Float!
-  lng: Float!
-  address: String
-}
+# type IncidentHistory {
+#   # bisa untuk menuliskan tindakan yang dilakukan
+#   id: Int!
+#   information: String!
+#   imageUrls: [String!]!
+# }

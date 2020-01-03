@@ -3,6 +3,9 @@ cache:
   paths:
     - node_modules/
 
+variables:
+  GIT_CLEAN_FLAGS: none
+
 before_script:
     - export NVM_DIR="$HOME/.nvm"
     - . ${NVM_DIR}/nvm.sh

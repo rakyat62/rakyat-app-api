@@ -46,6 +46,7 @@ export default {
       const getUser = models.User.findOne({ where: { username } });
       const getOrganization = models.Organization.findByPk(organizationId);
       const [user, organization] = await Promise.all([getUser, getOrganization]);
+      if (!user) throw Error('user not found');
       if (!organization) throw Error('organization not found');
       const isAlreadyMember = await user.hasOrganization(organizationId);
       if (isAlreadyMember) throw Error('user already the member');

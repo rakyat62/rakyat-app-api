@@ -8,7 +8,6 @@ before_script:
     - . ${NVM_DIR}/nvm.sh
     - nvm use 10
     - npm install
-    - mv .env.example .env
 
 stages:
   - deploy
@@ -19,7 +18,7 @@ deploy_dev:
     - rakyat-app-api
   script:
     - echo "Deploy to staging (dev) server"
-    - sed -i 's/PORT=4000/PORT=3000/g' .env
+    # - sed -i 's/PORT=4000/PORT=3000/g' .env
     - pm2 start ecosystem.config.js
   only:
     - master

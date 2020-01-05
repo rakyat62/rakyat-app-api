@@ -12,6 +12,7 @@ type Subscription {
   newIncident: Incident!
 }
 
+scalar DateTime
 type Incident {
   id: Int!
   information: String
@@ -24,8 +25,8 @@ type Incident {
   # incidentHistories: IncidentHistory!
   # imageUrls: [String!]!
   # userUpvotes: [User!]!
-  createdAt: String!
-  updatedAt: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 enum IncidentStatus {

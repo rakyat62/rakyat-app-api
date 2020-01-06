@@ -6,26 +6,32 @@ const dateNow = moment().format('YYYY-MM-DD HH:mm');
 module.exports = {
   up: (queryInterface /* Sequelize */) => queryInterface.bulkInsert('incident_label', [
     {
-      name: 'Saluran air macet',
-      icon: 'mdi-home',
+      name: 'Saluran air',
+      icon: 'mdi-pipe-leak',
       createdAt: dateNow,
       updatedAt: dateNow,
     },
     {
-      name: 'Darurat',
-      icon: 'mdi-home',
+      name: 'Kecelakaan',
+      icon: 'mdi-car-back',
       createdAt: dateNow,
       updatedAt: dateNow,
     },
     {
-      name: 'Jalan',
-      icon: 'mdi-home',
+      name: 'Lampu PJU',
+      icon: 'mdi-rail-roal-light',
       createdAt: dateNow,
       updatedAt: dateNow,
     },
     {
-      name: 'La Label',
-      icon: 'mdi-home',
+      name: 'Jalan Bermasalah',
+      icon: 'mdi-road-variant',
+      createdAt: dateNow,
+      updatedAt: dateNow,
+    },
+    {
+      name: 'Lampu Trafik',
+      icon: 'mdi-traffic-light',
       createdAt: dateNow,
       updatedAt: dateNow,
     },

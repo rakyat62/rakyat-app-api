@@ -1,6 +1,7 @@
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import models from '../../models';
+import { verifyToken } from '../../utils/auth';
 
 const { JWT_SECRET } = process.env;
 
@@ -15,6 +16,13 @@ export default {
         user = await models.User.findOne({ where: { username } });
       }
 
+      return user;
+    },
+
+    me: async (parent, args, { request }) => {
+      const auth = verifyToken(request);
+      const user = await models.User.findByPk(auth.id);
+      if (!user) throw Error('user not found');
       return user;
     },
   },

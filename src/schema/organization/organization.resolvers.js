@@ -15,13 +15,6 @@ export default {
         ];
 
         nodes = await models.Organization.findAll({ include });
-        nodes = nodes.map((org) => ({
-          ...org.toJSON(),
-          members: org.Users.map((user) => ({
-            ...user.toJSON(),
-            role: user.UserRole.role,
-          })),
-        }));
       }
       if (fields.totalCount) {
         totalCount = await models.Organization.count();
@@ -52,6 +45,18 @@ export default {
       if (isAlreadyMember) throw Error('user already the member');
       await user.addOrganization(organizationId, { through: { role } });
       return user;
+    },
+  },
+  Organization: {
+    members: async (parent) => {
+      const include = [
+        { model: models.User },
+      ];
+      const org = await models.Organization.findByPk(parent.id, { include });
+      return org.Users.map((user) => ({
+        ...user.toJSON(),
+        role: user.UserRole.role,
+      }));
     },
   },
 };

@@ -9,19 +9,11 @@ export default {
     user: async (parent, { id, username }) => {
       let user;
 
-      const include = [
-        { model: models.Organization },
-      ];
-
       if (id) {
-        user = await models.User.findByPk(id, { include });
+        user = await models.User.findByPk(id);
       } else if (username) {
-        user = await models.User.findOne({ where: { username }, include });
+        user = await models.User.findOne({ where: { username } });
       }
-      user.organizations = user.Organizations.map((org) => ({
-        ...org.toJSON(),
-        role: org.UserRole.role,
-      }));
 
       return user;
     },
@@ -47,5 +39,16 @@ export default {
   },
 
   User: {
+    organizations: async (parent) => {
+      const include = [
+        { model: models.Organization },
+      ];
+
+      const user = await models.User.findByPk(parent.id, { include });
+      return user.Organizations.map((org) => ({
+        ...org.toJSON(),
+        role: org.UserRole.role,
+      }));
+    },
   },
 };

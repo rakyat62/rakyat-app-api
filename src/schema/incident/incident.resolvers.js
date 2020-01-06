@@ -4,8 +4,11 @@ import { verifyToken } from '../../utils/auth';
 
 export default {
   Query: {
-    incidents: async () => {
-      const incidents = await models.Incident.findAll();
+    incidents: async (parent, { status }) => {
+      const where = {};
+      if (status) { where.status = status; }
+
+      const incidents = await models.Incident.findAll({ where });
       return incidents;
     },
     incidentLabels: () => models.IncidentLabel.findAll(),

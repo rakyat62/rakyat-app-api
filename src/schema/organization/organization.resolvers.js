@@ -25,6 +25,7 @@ export default {
         totalCount,
       };
     },
+    organization: async (parent, { id }) => models.Organization.findByPk(id),
   },
   Mutation: {
     createOrganization: async (parent, { input }, { request }) => {
@@ -44,7 +45,20 @@ export default {
       const isAlreadyMember = await user.hasOrganization(organizationId);
       if (isAlreadyMember) throw Error('user already the member');
       await user.addOrganization(organizationId, { through: { role } });
-      return user;
+      return organization;
+    },
+    addOrganizationRelatedLabel: async (parent, { incidentLabelId, organizationId }) => {
+      const getIncidentLabel = models.IncidentLabel.findByPk(incidentLabelId);
+      const getOrganization = models.Organization.findByPk(organizationId);
+      const [incidentLabel, organization] = await Promise.all([getIncidentLabel, getOrganization]);
+      if (!incidentLabel) throw Error('user not found');
+      if (!organization) throw Error('organization not found');
+
+      const isAlreadyAdded = await organization.hasIncidentLabel(incidentLabelId);
+      if (isAlreadyAdded) throw Error('Label already added');
+
+      await organization.addIncidentLabel(incidentLabel);
+      return organization;
     },
   },
   Organization: {
@@ -57,6 +71,13 @@ export default {
         ...user.toJSON(),
         role: user.UserRole.role,
       }));
+    },
+    relatedLabels: async (parent) => {
+      const include = [
+        { model: models.IncidentLabel },
+      ];
+      const org = await models.Organization.findByPk(parent.id, { include });
+      return org.IncidentLabels;
     },
   },
 };

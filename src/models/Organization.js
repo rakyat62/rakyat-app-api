@@ -18,6 +18,9 @@ module.exports = (sequelize, DataTypes) => {
     Organization.hasMany(models.IncidentHistory, {
       foreignKey: 'createdBy',
     });
+    Organization.belongsToMany(models.IncidentLabel, {
+      through: 'organization_related_incident_label',
+    });
   };
 
   return Organization;

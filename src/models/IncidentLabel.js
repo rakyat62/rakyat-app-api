@@ -12,6 +12,9 @@ module.exports = (sequelize, DataTypes) => {
         field: 'label',
       },
     });
+    IncidentLabel.belongsToMany(models.Organization, {
+      through: 'organization_related_incident_label',
+    });
   };
 
   return IncidentLabel;

@@ -1,30 +1,9 @@
-import graphqlFields from 'graphql-fields';
 import models from '../../models';
 import { verifyToken } from '../../utils/auth';
 
 export default {
   Query: {
-    organizations: async (parent, args, ctx, info) => {
-      let nodes;
-      let totalCount;
-      const fields = graphqlFields(info);
-
-      if (fields.nodes) {
-        const include = [
-          { model: models.User },
-        ];
-
-        nodes = await models.Organization.findAll({ include });
-      }
-      if (fields.totalCount) {
-        totalCount = await models.Organization.count();
-      }
-
-      return {
-        nodes,
-        totalCount,
-      };
-    },
+    organizations: async () => models.Organization.findAll(),
     organization: async (parent, { id }) => models.Organization.findByPk(id),
   },
   Mutation: {

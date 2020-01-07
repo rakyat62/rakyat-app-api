@@ -1,5 +1,5 @@
 type Query {
-  organizations: OrganizationConnection!
+  organizations: [Organization]!
   organization(id: Int!): Organization!
 }
 
@@ -7,11 +7,6 @@ type Mutation {
   createOrganization(input: CreateOrganizationInput!): Organization!
   addOrganizationMember(organizationId: Int!, username: String!, role: UserRole): Organization!
   addOrganizationRelatedLabel(incidentLabelId: Int!, organizationId: Int!): Organization!
-}
-
-type OrganizationConnection {
-  nodes: [Organization]
-  totalCount: Int!
 }
 
 type Organization {

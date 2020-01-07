@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
     IncidentHistory.belongsTo(models.Incident, {
       foreignKey: 'incidentId',
     });
-    IncidentHistory.belongsTo(models.Organization, {
+    IncidentHistory.belongsTo(models.User, {
       foreignKey: 'createdBy',
     });
   };

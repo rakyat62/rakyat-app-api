@@ -5,7 +5,7 @@ type Query {
 
 type Mutation {
   createIncident(input: CreateIncidentInput!): Incident!
-  # createIncidentHistory(data: CreateIncidentHistoryInput!): IncidentHistory
+  addIncidentHistory(input: CreateIncidentHistoryInput!): IncidentHistory!
 }
 
 type Subscription {
@@ -22,7 +22,7 @@ type Incident {
   locationLng: Float!
   label: IncidentLabel!
   createdBy: User!
-  # incidentHistories: IncidentHistory!
+  histories: [IncidentHistory]!
   # imageUrls: [String!]!
   # userUpvotes: [User!]!
   createdAt: DateTime!
@@ -50,9 +50,21 @@ type IncidentLabel {
   icon: String!
 }
 
-# type IncidentHistory {
-#   # bisa untuk menuliskan tindakan yang dilakukan
-#   id: Int!
-#   information: String!
-#   imageUrls: [String!]!
-# }
+
+type IncidentHistory {
+  id: Int!
+  content: String
+  type: IncidentHistoryType!
+  createdBy: User!
+}
+
+input CreateIncidentHistoryInput {
+  content: String
+  type: IncidentHistoryType!
+  incidentId: Int!
+}
+
+enum IncidentHistoryType {
+  FOLLOW_UP
+  COMMENT
+}

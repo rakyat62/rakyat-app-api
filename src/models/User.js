@@ -26,6 +26,9 @@ module.exports = (sequelize, DataTypes) => {
     User.belongsToMany(models.Incident, {
       through: 'user_upvote_incident',
     });
+    User.hasMany(models.IncidentHistory, {
+      foreignKey: 'createdBy',
+    });
   };
 
   return User;

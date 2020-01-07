@@ -34,6 +34,18 @@ export default {
       pubsub.publish('NEW_INCIDENT', { newIncident });
       return newIncident;
     },
+    addIncidentHistory: async (parent, { input }, { request }) => {
+      const auth = verifyToken(request);
+      const user = await models.User.findByPk(auth.id);
+      if (!user) throw Error('User not found. Please re-login');
+
+      const payload = {
+        ...input,
+        createdBy: user.id,
+      };
+      const newIncidentHistory = await models.IncidentHistory.create(payload);
+      return newIncidentHistory;
+    },
   },
   Subscription: {
     newIncident: {
@@ -44,5 +56,10 @@ export default {
   Incident: {
     createdBy: (parent) => models.User.findByPk(parent.createdBy),
     label: (parent) => models.IncidentLabel.findByPk(parent.label),
+    histories: (parent) => models.IncidentHistory.findAll({ where: { createdBy: parent.id } }),
+  },
+
+  IncidentHistory: {
+    createdBy: (parent) => models.User.findByPk(parent.createdBy),
   },
 };

@@ -34,6 +34,8 @@ export default {
         user = await models.User.findOne({ where: { username } });
       }
 
+      if (!user) throw Error('User not found');
+
       return user;
     },
 

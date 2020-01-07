@@ -15,7 +15,12 @@ export default {
       const incidents = await models.Incident.findAll({ where });
       return incidents;
     },
-    incident: (parent, { id }) => models.Incident.findByPk(id),
+    incident: async (parent, { id }) => {
+      const incident = await models.Incident.findByPk(id);
+      if (!incident) throw Error('incident not found');
+
+      return incident;
+    },
     incidentLabels: () => models.IncidentLabel.findAll(),
   },
 

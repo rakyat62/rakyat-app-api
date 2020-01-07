@@ -4,7 +4,12 @@ import { verifyToken } from '../../utils/auth';
 export default {
   Query: {
     organizations: async () => models.Organization.findAll(),
-    organization: async (parent, { id }) => models.Organization.findByPk(id),
+    organization: async (parent, { id }) => {
+      const org = await models.Organization.findByPk(id);
+      if (!org) throw Error('Organization not found');
+
+      return org;
+    },
   },
   Mutation: {
     createOrganization: async (parent, { input }, { request }) => {

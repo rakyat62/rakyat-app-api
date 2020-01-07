@@ -15,8 +15,10 @@ export default {
       const incidents = await models.Incident.findAll({ where });
       return incidents;
     },
+    incident: (parent, { id }) => models.Incident.findByPk(id),
     incidentLabels: () => models.IncidentLabel.findAll(),
   },
+
   Mutation: {
     createIncident: async (parent, { input }, { request }) => {
       const auth = verifyToken(request);
@@ -47,6 +49,7 @@ export default {
       return newIncidentHistory;
     },
   },
+
   Subscription: {
     newIncident: {
       subscribe: () => pubsub.asyncIterator('NEW_INCIDENT'),
@@ -57,6 +60,7 @@ export default {
     createdBy: (parent) => models.User.findByPk(parent.createdBy),
     label: (parent) => models.IncidentLabel.findByPk(parent.label),
     histories: (parent) => models.IncidentHistory.findAll({ where: { createdBy: parent.id } }),
+    historiesCount: (parent) => models.IncidentHistory.count({ where: { createdBy: parent.id } }),
   },
 
   IncidentHistory: {

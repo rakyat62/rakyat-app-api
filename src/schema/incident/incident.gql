@@ -1,5 +1,6 @@
 type Query {
   incidents(status: IncidentStatus, labels: [Int!]): [Incident!]!
+  incident(id: Int!): Incident!
   incidentLabels: [IncidentLabel!]!
 }
 
@@ -23,6 +24,7 @@ type Incident {
   label: IncidentLabel!
   createdBy: User!
   histories: [IncidentHistory]!
+  historiesCount: Int!
   # imageUrls: [String!]!
   # userUpvotes: [User!]!
   createdAt: DateTime!

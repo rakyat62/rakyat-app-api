@@ -2,11 +2,15 @@ import models from '../../models';
 import pubsub from '../../utils/pubsub';
 import { verifyToken } from '../../utils/auth';
 
+const { Op } = models.Sequelize;
+
 export default {
   Query: {
-    incidents: async (parent, { status }) => {
+    incidents: async (parent, { status, labels }) => {
+      // TODO: filter by keywords
       const where = {};
       if (status) { where.status = status; }
+      if (labels) { where[Op.or] = labels.map((label) => ({ label })); }
 
       const incidents = await models.Incident.findAll({ where });
       return incidents;

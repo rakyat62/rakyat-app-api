@@ -1,5 +1,5 @@
 type Query {
-  incidents(status: IncidentStatus): [Incident!]!
+  incidents(status: IncidentStatus, labels: [Int!]): [Incident!]!
   incidentLabels: [IncidentLabel!]!
 }
 

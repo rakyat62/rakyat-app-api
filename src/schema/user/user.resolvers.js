@@ -4,9 +4,27 @@ import models from '../../models';
 import { verifyToken } from '../../utils/auth';
 
 const { JWT_SECRET } = process.env;
+const { Op } = models.Sequelize;
 
 export default {
   Query: {
+    users: async (parent, { keywords }) => {
+      const where = {};
+      if (keywords) {
+        where[Op.or] = [
+          {
+            username: { [Op.like]: `%${keywords}%` },
+          },
+          {
+            firstName: { [Op.like]: `%${keywords}%` },
+          },
+          {
+            lastName: { [Op.like]: `%${keywords}%` },
+          },
+        ];
+      }
+      return models.User.findAll({ where });
+    },
     user: async (parent, { id, username }) => {
       let user;
 

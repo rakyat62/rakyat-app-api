@@ -19,7 +19,7 @@ module.exports = {
     },
     {
       name: 'Lampu PJU',
-      icon: 'mdi-rail-roal-light',
+      icon: 'mdi-railroad-light',
       createdAt: dateNow,
       updatedAt: dateNow,
     },

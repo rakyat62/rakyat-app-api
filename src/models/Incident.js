@@ -25,9 +25,6 @@ module.exports = (sequelize, DataTypes) => {
     Incident.belongsToMany(models.User, {
       through: 'user_upvote_incident',
     });
-    Incident.belongsToMany(models.User, {
-      through: models.IncidentComment,
-    });
   };
 
   return Incident;

@@ -7,7 +7,7 @@ export const verifyToken = (request) => {
   if (!header) throw Error('Authentication required');
 
   const [authType, token] = header.split(' ');
-  if (!authType) throw Error('unkwown auth type');
+  if (authType !== 'Bearer') throw Error('unkwown auth type');
 
   const jwtPayload = jwt.verify(token, JWT_SECRET);
   return jwtPayload;

@@ -3,8 +3,8 @@ module.exports = (sequelize, DataTypes) => {
     information: DataTypes.TEXT,
     status: DataTypes.STRING,
     locationAddress: DataTypes.STRING,
-    locationLat: DataTypes.DECIMAL(11, 2),
-    locationLng: DataTypes.DECIMAL(11, 2),
+    locationLat: DataTypes.DECIMAL(11, 7),
+    locationLng: DataTypes.DECIMAL(11, 7),
   }, {
     tableName: 'incidents',
   });

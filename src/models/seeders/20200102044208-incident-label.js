@@ -12,14 +12,14 @@ module.exports = {
       updatedAt: dateNow,
     },
     {
-      name: 'Jalan Bermasalah',
+      name: 'Jalan/Trotoar Rusak',
       icon: 'mdi-road-variant',
       createdAt: dateNow,
       updatedAt: dateNow,
     },
     {
-      name: 'Lampu Trafik',
-      icon: 'mdi-traffic-light',
+      name: 'Kebakaran',
+      icon: 'mdi-fire',
       createdAt: dateNow,
       updatedAt: dateNow,
     },

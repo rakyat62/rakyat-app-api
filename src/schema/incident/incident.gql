@@ -58,6 +58,7 @@ type IncidentHistory {
   content: String
   type: IncidentHistoryType!
   createdBy: User!
+  createdAt: DateTime!
 }
 
 input CreateIncidentHistoryInput {

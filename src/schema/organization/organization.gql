@@ -7,6 +7,7 @@ type Mutation {
   createOrganization(input: CreateOrganizationInput!): Organization!
   addOrganizationMember(organizationId: Int!, username: String!, role: UserRole): Organization!
   addOrganizationRelatedLabel(incidentLabelId: Int!, organizationId: Int!): Organization!
+  removeOrganizationRelatedLabel(incidentLabelId: Int!, organizationId: Int!): Organization!
 }
 
 type Organization {

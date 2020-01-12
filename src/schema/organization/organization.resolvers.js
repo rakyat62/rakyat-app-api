@@ -44,6 +44,19 @@ export default {
       await organization.addIncidentLabel(incidentLabel);
       return organization;
     },
+    removeOrganizationRelatedLabel: async (parent, { incidentLabelId, organizationId }) => {
+      const getIncidentLabel = models.IncidentLabel.findByPk(incidentLabelId);
+      const getOrganization = models.Organization.findByPk(organizationId);
+      const [incidentLabel, organization] = await Promise.all([getIncidentLabel, getOrganization]);
+      if (!incidentLabel) throw Error('user not found');
+      if (!organization) throw Error('organization not found');
+
+      const isAlreadyAdded = await organization.hasIncidentLabel(incidentLabelId);
+      if (!isAlreadyAdded) throw Error('The organization doesnt related with the label');
+
+      await organization.removeIncidentLabel(incidentLabel);
+      return organization;
+    },
   },
   Organization: {
     members: async (parent) => {

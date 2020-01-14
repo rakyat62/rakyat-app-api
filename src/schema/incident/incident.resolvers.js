@@ -64,8 +64,8 @@ export default {
   Incident: {
     createdBy: (parent) => models.User.findByPk(parent.createdBy),
     label: (parent) => models.IncidentLabel.findByPk(parent.label),
-    histories: (parent) => models.IncidentHistory.findAll({ where: { createdBy: parent.id } }),
-    historiesCount: (parent) => models.IncidentHistory.count({ where: { createdBy: parent.id } }),
+    histories: (parent) => models.IncidentHistory.findAll({ where: { incidentId: parent.id } }),
+    historiesCount: (parent) => models.IncidentHistory.count({ where: { incidentId: parent.id } }),
   },
 
   IncidentHistory: {

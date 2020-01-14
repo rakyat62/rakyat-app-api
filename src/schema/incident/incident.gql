@@ -50,6 +50,7 @@ type IncidentLabel {
   id: Int!
   name: String!
   icon: String!
+  relatedOrganizations: [Organization]!
 }
 
 

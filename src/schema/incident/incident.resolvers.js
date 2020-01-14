@@ -71,4 +71,14 @@ export default {
   IncidentHistory: {
     createdBy: (parent) => models.User.findByPk(parent.createdBy),
   },
+
+  IncidentLabel: {
+    relatedOrganizations: async (parent) => {
+      const include = [
+        { model: models.Organization },
+      ];
+      const incidentLabel = await models.IncidentLabel.findByPk(parent.id, { include });
+      return incidentLabel.Organizations;
+    },
+  },
 };

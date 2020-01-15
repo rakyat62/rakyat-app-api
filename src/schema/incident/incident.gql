@@ -43,7 +43,7 @@ input CreateIncidentInput {
   # label ID
   label: Int!
   # image URLs
-  images: [String!]!
+  images: [String!] = []
 }
 
 
@@ -69,7 +69,7 @@ input CreateIncidentHistoryInput {
   type: IncidentHistoryType!
   incidentId: Int!
   # image URLs
-  images: [String!]!
+  images: [String!] = []
 }
 
 enum IncidentHistoryType {

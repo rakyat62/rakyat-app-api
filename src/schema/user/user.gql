@@ -12,10 +12,12 @@ type Mutation {
 type User implements UserType {
   id: Int!
   username: String!
-  email: String
+  email: String!
   phone: String
-  firstName: String
-  lastName: String
+  firstName: String!
+  lastName: String!
+  gender: UserGender!
+  avatarUrl: String
   organizations: [UserOrganizationWithRole]
 }
 
@@ -34,12 +36,18 @@ enum UserRole {
   ADMIN
 }
 
+enum UserGender {
+  MALE
+  FEMALE
+}
+
 input CreateUserInput {
   username: String!
-  email: String
+  email: String!
   phone: String
-  firstName: String
-  lastName: String
+  firstName: String!
+  lastName: String!
+  gender: UserGender!
   password: String!
 }
 

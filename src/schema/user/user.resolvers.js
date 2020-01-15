@@ -50,7 +50,15 @@ export default {
   Mutation: {
     createUser: async (parent, { input }) => {
       const password = await bcrypt.hash(input.password, 10);
-      return models.User.create({ ...input, password });
+      const { gender } = input;
+      const randomNum = Math.floor(Math.random() * 100); // 0 - 99
+      const avatarUrl = `https://randomuser.me/api/portraits/${gender === 'MALE' ? 'men' : 'women'}/${randomNum}.jpg`;
+      const payload = {
+        ...input,
+        avatarUrl,
+        password,
+      };
+      return models.User.create(payload);
     },
     login: async (parent, { input }) => {
       const { username, password } = input;

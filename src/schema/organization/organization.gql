@@ -22,11 +22,13 @@ type Organization {
 
 type OrganizationMemberWithRole implements UserType {
   id: Int!
-  username: String
-  email: String
+  username: String!
+  email: String!
   phone: String
-  firstName: String
-  lastName: String
+  firstName: String!
+  lastName: String!
+  gender: UserGender!
+  avatarUrl: String
   role: UserRole!
 }
 

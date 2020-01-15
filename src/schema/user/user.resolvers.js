@@ -53,12 +53,7 @@ export default {
       const { gender } = input;
       const randomNum = Math.floor(Math.random() * 100); // 0 - 99
       const avatarUrl = `https://randomuser.me/api/portraits/${gender === 'MALE' ? 'men' : 'women'}/${randomNum}.jpg`;
-      const payload = {
-        ...input,
-        avatarUrl,
-        password,
-      };
-      return models.User.create(payload);
+      return models.User.create({ ...input, avatarUrl, password });
     },
     login: async (parent, { input }) => {
       const { username, password } = input;

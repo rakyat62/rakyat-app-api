@@ -27,6 +27,7 @@ type UserOrganizationWithRole {
   isGovernment: Boolean
   description: String
   officeAddress: String
+  logoUrl: String
   role: UserRole!
 }
 

@@ -16,7 +16,10 @@ export default {
       const auth = verifyToken(request);
       const user = await models.User.findByPk(auth.id);
       if (!user) throw Error('user not found');
-      const org = await models.Organization.create(input);
+
+      const randomNum = Math.floor(Math.random() * 10); // 0 - 9
+      const logoUrl = `https://randomuser.me/api/portraits/lego/${randomNum}.jpg`;
+      const org = await models.Organization.create({ ...input, logoUrl });
       await user.addOrganization(org, { through: { role: 'OWNER' } });
       return org;
     },

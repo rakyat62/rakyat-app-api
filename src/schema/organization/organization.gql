@@ -16,6 +16,7 @@ type Organization {
   isGovernment: Boolean
   description: String
   officeAddress: String
+  logoUrl: String
   members: [OrganizationMemberWithRole]
   relatedLabels: [IncidentLabel]
 }

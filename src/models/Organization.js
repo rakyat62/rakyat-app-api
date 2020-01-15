@@ -4,6 +4,7 @@ module.exports = (sequelize, DataTypes) => {
     isGovernment: DataTypes.BOOLEAN,
     description: DataTypes.TEXT,
     officeAddress: DataTypes.TEXT,
+    logoUrl: DataTypes.STRING,
   }, {
     tableName: 'organizations',
   });

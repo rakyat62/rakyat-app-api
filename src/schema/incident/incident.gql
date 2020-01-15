@@ -25,8 +25,7 @@ type Incident {
   createdBy: User!
   histories: [IncidentHistory]!
   historiesCount: Int!
-  # imageUrls: [String!]!
-  # userUpvotes: [User!]!
+  images: [String!]!
   createdAt: DateTime!
   updatedAt: DateTime!
 }
@@ -43,6 +42,8 @@ input CreateIncidentInput {
   locationLng: Float!
   # label ID
   label: Int!
+  # image URLs
+  images: [String!]!
 }
 
 
@@ -58,6 +59,7 @@ type IncidentHistory {
   id: Int!
   content: String
   type: IncidentHistoryType!
+  images: [String!]!
   createdBy: User!
   createdAt: DateTime!
 }
@@ -66,6 +68,8 @@ input CreateIncidentHistoryInput {
   content: String
   type: IncidentHistoryType!
   incidentId: Int!
+  # image URLs
+  images: [String!]!
 }
 
 enum IncidentHistoryType {

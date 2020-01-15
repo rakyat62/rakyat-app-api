@@ -5,6 +5,7 @@ module.exports = (sequelize, DataTypes) => {
     locationAddress: DataTypes.STRING,
     locationLat: DataTypes.DECIMAL(11, 7),
     locationLng: DataTypes.DECIMAL(11, 7),
+    images: DataTypes.TEXT,
   }, {
     tableName: 'incidents',
   });

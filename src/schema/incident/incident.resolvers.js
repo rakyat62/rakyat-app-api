@@ -33,6 +33,7 @@ export default {
       const payload = {
         ...input,
         status: 'OPEN',
+        images: JSON.stringify(input.images),
         createdBy: user.id,
       };
 
@@ -48,6 +49,7 @@ export default {
 
       const payload = {
         ...input,
+        images: JSON.stringify(input.images),
         createdBy: user.id,
       };
       const newIncidentHistory = await models.IncidentHistory.create(payload);
@@ -66,10 +68,13 @@ export default {
     label: (parent) => models.IncidentLabel.findByPk(parent.label),
     histories: (parent) => models.IncidentHistory.findAll({ where: { incidentId: parent.id } }),
     historiesCount: (parent) => models.IncidentHistory.count({ where: { incidentId: parent.id } }),
+    images: (parent) => JSON.parse(parent.images),
   },
 
   IncidentHistory: {
     createdBy: (parent) => models.User.findByPk(parent.createdBy),
+    images: (parent) => JSON.parse(parent.images),
+
   },
 
   IncidentLabel: {

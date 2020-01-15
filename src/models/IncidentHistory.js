@@ -2,6 +2,7 @@ module.exports = (sequelize, DataTypes) => {
   const IncidentHistory = sequelize.define('IncidentHistory', {
     content: DataTypes.TEXT,
     type: DataTypes.STRING,
+    images: DataTypes.TEXT,
   }, {
     tableName: 'incident_histories',
   });

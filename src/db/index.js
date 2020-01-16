@@ -2,7 +2,6 @@ const knex = require('knex')({
   client: 'mysql2',
   debug: true,
   connection: {
-    timezone: 'Asia/Jakarta',
     host: process.env.DB_HOST,
     port: process.env.DB_PORT,
     database: process.env.DB_NAME || 'your_db',

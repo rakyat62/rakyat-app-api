@@ -17,9 +17,6 @@ module.exports = (sequelize, DataTypes) => {
     Incident.belongsTo(models.IncidentLabel, {
       foreignKey: 'label',
     });
-    Incident.belongsTo(models.Organization, {
-      foreignKey: 'assignedTo',
-    });
     Incident.hasMany(models.IncidentHistory, {
       foreignKey: 'incidentId',
     });

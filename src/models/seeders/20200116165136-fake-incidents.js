@@ -8,12 +8,10 @@ const getRandomNumber = (from, to, fixed = 0) => {
   return num.toFixed(fixed) * 1;
 };
 
-
 const getRandomStatus = () => {
   const statuses = ['OPEN', 'CLOSED'];
   return statuses[getRandomNumber(0, 1)];
 };
-
 
 const data = new Array(200).fill({}).map(() => ({
   information: faker.random.words(getRandomNumber(15, 40)),
@@ -28,8 +26,9 @@ const data = new Array(200).fill({}).map(() => ({
     .format('YYYY-MM-DD HH:mm'),
   updatedAt: dateNow,
 }));
+
+
 module.exports = {
   up: (queryInterface, Sequelize) => queryInterface.bulkInsert('incidents', data, {}),
-
   down: (queryInterface, Sequelize) => queryInterface.bulkDelete('incidents', null, {}),
 };

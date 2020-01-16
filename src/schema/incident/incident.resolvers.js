@@ -1,20 +1,16 @@
 import models from '../../models';
 import pubsub from '../../utils/pubsub';
 import { verifyToken } from '../../utils/auth';
+import db from '../../db';
 
 const { Op } = models.Sequelize;
 
 export default {
   Query: {
-    incidents: async (parent, { status, labels }) => {
-      // TODO: filter by keywords
-      const where = {};
-      if (status) { where.status = status; }
-      if (labels) { where[Op.or] = labels.map((label) => ({ label })); }
-
-      const incidents = await models.Incident.findAll({ where });
-      return incidents;
-    },
+    incidents: async (parent, { status, labels }) => ({
+      status,
+      labels,
+    }),
     incident: async (parent, { id }) => {
       const incident = await models.Incident.findByPk(id);
       if (!incident) throw Error('incident not found');
@@ -60,6 +56,39 @@ export default {
   Subscription: {
     newIncident: {
       subscribe: () => pubsub.asyncIterator('NEW_INCIDENT'),
+    },
+  },
+
+  IncidentConnection: {
+    nodes: async ({ status, labels }) => {
+      const where = {};
+      if (status) { where.status = status; }
+      if (labels) { where[Op.or] = labels.map((label) => ({ label })); }
+
+      const incidents = await models.Incident.findAll({ where });
+      return incidents;
+    },
+
+    totalCount: async ({ status, labels }) => {
+      const where = {};
+      if (status) { where.status = status; }
+      if (labels) { where[Op.or] = labels.map((label) => ({ label })); }
+
+      const incidents = await models.Incident.count({ where });
+      return incidents;
+    },
+
+    stats: async ({ status, labels }, { groupBy }) => {
+      const query = db
+        .select(db.raw('COUNT(id) as count'), db.raw(`${groupBy} as fieldGroup`))
+        .from('incidents');
+
+      if (status) query.where({ status });
+      if (labels) query.whereIn('label', labels);
+      query.groupByRaw(groupBy);
+
+      const result = await query;
+      return result;
     },
   },
 

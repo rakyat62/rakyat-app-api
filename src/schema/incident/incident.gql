@@ -1,5 +1,5 @@
 type Query {
-  incidents(status: IncidentStatus, labels: [Int!]): [Incident!]!
+  incidents(status: IncidentStatus, labels: [Int!]): IncidentConnection!
   incident(id: Int!): Incident!
   incidentLabels: [IncidentLabel!]!
 }
@@ -11,6 +11,17 @@ type Mutation {
 
 type Subscription {
   newIncident: Incident!
+}
+
+scalar MySqlFieldGroupBy
+type IncidentConnection {
+  nodes: [Incident!]!
+  stats(groupBy: MySqlFieldGroupBy!): [DataGroupStats]!
+  totalCount: Int!
+}
+type DataGroupStats {
+  count: Int!
+  fieldGroup: MySqlFieldGroupBy!
 }
 
 scalar DateTime

@@ -26,6 +26,7 @@
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "dotenv": "^8.1.0",
+    "faker": "^4.1.0",
     "graphql-fields": "^2.0.3",
     "graphql-yoga": "^1.16.7",
     "jsonwebtoken": "^8.5.1",

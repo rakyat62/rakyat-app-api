@@ -29,6 +29,6 @@ const data = new Array(200).fill({}).map(() => ({
 
 
 module.exports = {
-  up: (queryInterface, Sequelize) => queryInterface.bulkInsert('incidents', data, {}),
-  down: (queryInterface, Sequelize) => queryInterface.bulkDelete('incidents', null, {}),
+  up: (queryInterface/* , Sequelize */) => queryInterface.bulkInsert('incidents', data, {}),
+  down: (queryInterface/* , Sequelize */) => queryInterface.bulkDelete('incidents', null, {}),
 };

@@ -58,36 +58,51 @@ export default {
 
   IncidentConnection: {
     nodes: async ({ args }) => {
-      const { status, labels } = args;
-      const where = {};
+      const {
+        status, labels, dateStart, dateEnd,
+      } = args;
+      let where = {};
       if (status) { where.status = status; }
       if (labels) { where[Op.or] = labels.map((label) => ({ label })); }
+      // eslint-disable-next-line max-len
+      if (dateStart) { where = { ...where, createdAt: { ...where.createdAt, [Op.gte]: dateStart } }; }
+      if (dateEnd) { where = { ...where, createdAt: { ...where.createdAt, [Op.lte]: dateEnd } }; }
 
       const incidents = await models.Incident.findAll({ where });
       return incidents;
     },
 
     totalCount: async ({ args }) => {
-      const { status, labels } = args;
-      const where = {};
+      const {
+        status, labels, dateStart, dateEnd,
+      } = args;
+      let where = {};
       if (status) { where.status = status; }
       if (labels) { where[Op.or] = labels.map((label) => ({ label })); }
+      // eslint-disable-next-line max-len
+      if (dateStart) { where = { ...where, createdAt: { ...where.createdAt, [Op.gte]: dateStart } }; }
+      if (dateEnd) { where = { ...where, createdAt: { ...where.createdAt, [Op.lte]: dateEnd } }; }
 
       const incidents = await models.Incident.count({ where });
       return incidents;
     },
 
     stats: async ({ args }, { groupBy }) => {
-      const { status, labels } = args;
+      const {
+        status, labels, dateStart, dateEnd,
+      } = args;
       const query = db
         .select(db.raw('COUNT(id) as count'), db.raw(`${groupBy} as fieldGroup`))
         .from('incidents');
 
       if (status) query.where({ status });
       if (labels) query.whereIn('label', labels);
-      query.groupByRaw(groupBy);
+      if (dateStart) query.where('createdAt', '>=', dateStart);
+      if (dateEnd) query.where('createdAt', '<=', dateEnd);
 
+      query.groupByRaw(groupBy);
       const result = await query;
+
       return result;
     },
   },

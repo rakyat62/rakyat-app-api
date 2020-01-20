@@ -1,5 +1,10 @@
 type Query {
-  incidents(status: IncidentStatus, labels: [Int!]): IncidentConnection!
+  incidents(
+    status: IncidentStatus
+    labels: [Int!]
+    dateStart: DateTime
+    dateEnd: DateTime
+  ): IncidentConnection!
   incident(id: Int!): Incident!
   incidentLabels: [IncidentLabel!]!
 }
@@ -62,7 +67,11 @@ type IncidentLabel {
   id: Int!
   name: String!
   icon: String!
-  incidents (status: IncidentStatus): IncidentConnection!
+  incidents (
+    status: IncidentStatus
+    dateStart: DateTime
+    dateEnd: DateTime
+  ): IncidentConnection!
   relatedOrganizations: [Organization]!
 }
 

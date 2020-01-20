@@ -62,6 +62,7 @@ type IncidentLabel {
   id: Int!
   name: String!
   icon: String!
+  incidents (status: IncidentStatus): IncidentConnection!
   relatedOrganizations: [Organization]!
 }
 

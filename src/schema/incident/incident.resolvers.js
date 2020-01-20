@@ -7,10 +7,7 @@ const { Op } = models.Sequelize;
 
 export default {
   Query: {
-    incidents: async (parent, { status, labels }) => ({
-      status,
-      labels,
-    }),
+    incidents: async (parent, { status, labels }) => ({ status, labels }),
     incident: async (parent, { id }) => {
       const incident = await models.Incident.findByPk(id);
       if (!incident) throw Error('incident not found');
@@ -114,5 +111,6 @@ export default {
       const incidentLabel = await models.IncidentLabel.findByPk(parent.id, { include });
       return incidentLabel.Organizations;
     },
+    incidents: (parent, { status }) => ({ status, labels: [parent.id] }),
   },
 };

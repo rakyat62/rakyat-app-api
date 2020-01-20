@@ -7,7 +7,7 @@ const { Op } = models.Sequelize;
 
 export default {
   Query: {
-    incidents: async (parent, { status, labels }) => ({ status, labels }),
+    incidents: async (parent, args) => ({ args }),
     incident: async (parent, { id }) => {
       const incident = await models.Incident.findByPk(id);
       if (!incident) throw Error('incident not found');
@@ -57,7 +57,8 @@ export default {
   },
 
   IncidentConnection: {
-    nodes: async ({ status, labels }) => {
+    nodes: async ({ args }) => {
+      const { status, labels } = args;
       const where = {};
       if (status) { where.status = status; }
       if (labels) { where[Op.or] = labels.map((label) => ({ label })); }
@@ -66,7 +67,8 @@ export default {
       return incidents;
     },
 
-    totalCount: async ({ status, labels }) => {
+    totalCount: async ({ args }) => {
+      const { status, labels } = args;
       const where = {};
       if (status) { where.status = status; }
       if (labels) { where[Op.or] = labels.map((label) => ({ label })); }
@@ -75,7 +77,8 @@ export default {
       return incidents;
     },
 
-    stats: async ({ status, labels }, { groupBy }) => {
+    stats: async ({ args }, { groupBy }) => {
+      const { status, labels } = args;
       const query = db
         .select(db.raw('COUNT(id) as count'), db.raw(`${groupBy} as fieldGroup`))
         .from('incidents');
@@ -111,6 +114,6 @@ export default {
       const incidentLabel = await models.IncidentLabel.findByPk(parent.id, { include });
       return incidentLabel.Organizations;
     },
-    incidents: (parent, { status }) => ({ status, labels: [parent.id] }),
+    incidents: (parent, args) => ({ args: { ...args, labels: [parent.id] } }),
   },
 };

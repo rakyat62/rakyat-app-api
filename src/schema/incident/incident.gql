@@ -20,13 +20,30 @@ type Subscription {
 
 scalar MySqlFieldGroupBy
 type IncidentConnection {
-  nodes: [Incident!]!
+  nodes (
+    offset: Int
+    limit: Int
+    orderBy: IncidentOrder
+  ): [Incident!]!
   stats(groupBy: MySqlFieldGroupBy!): [DataGroupStats]!
   totalCount: Int!
 }
 type DataGroupStats {
   count: Int!
   fieldGroup: MySqlFieldGroupBy!
+}
+input IncidentOrder {
+  field: IncidentOrderField
+  direction: OrderDirection
+}
+enum IncidentOrderField {
+  createdAt
+  label
+  status
+}
+enum OrderDirection {
+  ASC
+  DESC
 }
 
 scalar DateTime

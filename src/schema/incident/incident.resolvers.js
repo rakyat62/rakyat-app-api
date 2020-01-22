@@ -57,7 +57,7 @@ export default {
   },
 
   IncidentConnection: {
-    nodes: async ({ args }) => {
+    nodes: async ({ args }, { offset, limit, orderBy: { field, direction = 'ASC' } = {} }) => {
       const {
         status, labels, dateStart, dateEnd,
       } = args;
@@ -68,7 +68,12 @@ export default {
       if (dateStart) { where = { ...where, createdAt: { ...where.createdAt, [Op.gte]: dateStart } }; }
       if (dateEnd) { where = { ...where, createdAt: { ...where.createdAt, [Op.lte]: dateEnd } }; }
 
-      const incidents = await models.Incident.findAll({ where });
+      let params = { where };
+      if (offset) { params = { ...params, offset }; }
+      if (limit) { params = { ...params, limit }; }
+      if (field) { params = { ...params, order: [[field, direction]] }; }
+
+      const incidents = await models.Incident.findAll(params);
       return incidents;
     },
 

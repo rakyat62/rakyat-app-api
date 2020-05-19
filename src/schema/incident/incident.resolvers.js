@@ -56,7 +56,7 @@ export default {
     },
   },
 
-  IncidentConnection: {
+  IncidentCollection: {
     nodes: async ({ args }, { offset, limit, orderBy: { field, direction = 'ASC' } = {} }) => {
       const {
         status, labels, dateStart, dateEnd,

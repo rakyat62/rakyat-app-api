@@ -4,7 +4,7 @@ type Query {
     labels: [Int!]
     dateStart: DateTime
     dateEnd: DateTime
-  ): IncidentConnection!
+  ): IncidentCollection!
   incident(id: Int!): Incident!
   incidentLabels: [IncidentLabel!]!
 }
@@ -19,7 +19,7 @@ type Subscription {
 }
 
 scalar MySqlFieldGroupBy
-type IncidentConnection {
+type IncidentCollection {
   nodes (
     offset: Int
     limit: Int
@@ -88,7 +88,7 @@ type IncidentLabel {
     status: IncidentStatus
     dateStart: DateTime
     dateEnd: DateTime
-  ): IncidentConnection!
+  ): IncidentCollection!
   relatedOrganizations: [Organization]!
 }
 

@@ -1,6 +1,6 @@
 require('dotenv').config();
-const db = require('./models');
-const logger = require('./helpers/logger');
+const db = require('./src/models');
+const logger = require('./src/helpers/logger');
 
 db.sequelize.sync({ force: true })
   .then(() => logger.info('Migration success'))

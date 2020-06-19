@@ -8,7 +8,7 @@
     "dev": "nodemon src/main.js --ext js,gql --exec \"npm run lint:fix && babel-node\"",
     "lint": "eslint \"**/*.js\"",
     "lint:fix": "npm run lint -- --fix",
-    "db:migrate": "node src/migrate.js",
+    "db:migrate": "node migrate.js",
     "db:seed:all": "sequelize db:seed:all --seeders-path src/models/seeders"
   },
   "author": "",

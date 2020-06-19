@@ -4,6 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
+    "now-build": "npm run build",
     "start": "npm run build && node .",
     "dev": "nodemon src/main.js --ext js,gql --exec \"npm run lint:fix && babel-node\"",
     "build": "babel src -d dist",

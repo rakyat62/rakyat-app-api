@@ -1,3 +1,4 @@
+export default `
 type Query {
   organizations: [Organization]!
   organization(id: Int!): Organization!
@@ -39,3 +40,4 @@ input CreateOrganizationInput {
   description: String = ""
   officeAddress: String!
 }
+`;

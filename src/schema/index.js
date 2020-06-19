@@ -8,9 +8,9 @@ import { fileLoader, mergeTypes } from 'merge-graphql-schemas';
 
 /*  AUTOMATED APPROACH: Put your resolvers anywhere
 with ".resolvers.[js/ts]" naming convention */
-const resolvers = fileLoader(path.join(__dirname, './**/*.resolvers.*'));
+const resolvers = fileLoader(path.join(__dirname, './**/*.resolvers.js'));
 
-const types = fileLoader(path.join(__dirname, './**/*.gql'));
+const types = fileLoader(path.join(__dirname, './**/*.types.js'));
 const typeDefs = mergeTypes(types);
 
 export { resolvers, typeDefs };

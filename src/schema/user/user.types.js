@@ -1,3 +1,4 @@
+export default `
 type Query {
   users(keywords: String): [User!]!
   user(id: String, username: String): User!
@@ -70,3 +71,4 @@ input LoginUserInput {
   username: String!
   password: String!
 }
+`;

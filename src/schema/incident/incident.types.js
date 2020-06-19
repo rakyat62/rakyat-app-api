@@ -1,3 +1,4 @@
+export default `
 type Query {
   incidents(
     status: IncidentStatus
@@ -114,3 +115,4 @@ enum IncidentHistoryType {
   FOLLOW_UP
   COMMENT
 }
+`;

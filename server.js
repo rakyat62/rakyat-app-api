@@ -1,4 +1,4 @@
-const server = require('./dist/main');
+const { server } = require('./dist/main');
 
 
 server.start({

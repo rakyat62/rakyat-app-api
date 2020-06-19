@@ -18,7 +18,7 @@ stages:
 deploy_dev:
   stage: deploy
   tags:
-    - rakyat-app-api
+    - titip-skripsi
   script:
     - echo "Deploy to staging (dev) server"
     - npm run build

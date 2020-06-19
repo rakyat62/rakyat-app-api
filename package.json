@@ -2,7 +2,7 @@
   "name": "graphql-basics",
   "version": "1.0.0",
   "description": "",
-  "main": "dist/main.js",
+  "main": "server.js",
   "scripts": {
     "start": "npm run build && node .",
     "dev": "nodemon src/main.js --ext js,gql --exec \"npm run lint:fix && babel-node\"",

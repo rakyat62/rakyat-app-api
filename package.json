@@ -34,7 +34,7 @@
     "faker": "^4.1.0",
     "graphql-fields": "^2.0.3",
     "graphql-yoga": "^1.16.7",
-    "jsonwebtoken": "^8.5.1",
+    "jsonwebtoken": "^9.0.0",
     "knex": "^0.20.6",
     "merge-graphql-schemas": "^1.7.0",
     "moment": "^2.24.0",
